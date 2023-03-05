@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02-模板语法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h1>插值语法</h1>
+      <h3>Hola, {{name}}</h3>
+      <hr />
+      <h1>指令语法</h1>
+      <a :href="url.toUpperCase()">{{name}}的github地址</a>
+      <a href="school.url">{{school.name}}</a>
+    </div>
+  </body>
+
+  <script>
+    new Vue({
+      el: '#root',
+      data: {
+        name: 'Mona',
+        url: 'https://github.com/Monaxi',
+        school: {
+          name: 'Henrik',
+          url: '#',
+        },
+      },
+    });
+  </script>
+</html>
