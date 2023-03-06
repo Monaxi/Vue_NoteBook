@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>013-Vue中的数据代理</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>My name:{{name}}</h2>
+      <h2>My address:{{address}}</h2>
+    </div>
+    <script>
+      const vm = new Vue({
+        el: '#root',
+        data() {
+          return {
+            name: 'Mona',
+            address: 'Beijing',
+          };
+        },
+      });
+    </script>
+  </body>
+</html>
