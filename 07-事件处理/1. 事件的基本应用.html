@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>014-事件处理</title>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"
+    ></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>欢迎{{name}}来学习呀</h2>
+      <!-- 点击button时 显示shouInfo -->
+      <button v-on:click="showInfo1">点我提示信息1(不传参)</button>
+      <button @click="showInfo2($event,66)">点我提示信息2(传参)</button>
+    </div>
+  </body>
+
+  <script>
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          name: 'Mona',
+        };
+      },
+      methods: {
+        showInfo1(event) {
+          // console.log(event.target.innerText);
+          // console.log(this == vm);// 此处的this是vm（vue实例对象）
+          alert('你好~');
+        },
+        showInfo2(event, number) {
+          console.log(number);
+          console.log(event.target.innerText);
+          // console.log(this == vm);// 此处的this是vm（vue实例对象）
+          alert('你好呀~');
+        },
+      },
+    });
+  </script>
+</html>

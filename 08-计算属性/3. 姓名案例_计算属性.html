@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>姓名案例_计算属性实现</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      姓：<input type="text" v-model="firstName" /><br /><br />
+      名：<input type="text" v-model="secondName" /><br /><br />
+      全名：<span>{{fullName}}</span><br /><br />
+      <!-- 计算属性会在这里进行了缓存 -->
+      全名：<span>{{fullName}}</span><br /><br />
+      全名：<span>{{fullName}}</span><br /><br />
+      全名：<span>{{fullName}}</span>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          firstName: 'Mona',
+          secondName: 'Lau',
+        };
+      },
+      computed: {
+        fullName: {
+          // get的作用：当有人读取fullname时，get就会被调用，且返回值就作为fullname的值
+          // get什么时候调用：1. 初次读取fullName时；2. 所依赖的数据（用到的数据）发生变化时。
+          get() {
+            console.log('get被调用了');
+            return this.firstName + '-' + this.secondName;
+          },
+          // set什么时候调用：当fullName被修改时
+          set(value) {
+            console.log('set', value);
+            const arr = value.split('-');
+            this.firstName = arr[0];
+            this.secondName = arr[1];
+          },
+        },
+      },
+    });
+  </script>
+</html>

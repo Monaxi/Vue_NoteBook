@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>015-事件修饰符</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+      * {
+        margin-top: 20px;
+      }
+      .demo1 {
+        height: 50px;
+        background-color: skyblue;
+      }
+      .box1 {
+        padding: 5px;
+        background-color: skyblue;
+      }
+      .box2 {
+        padding: 5px;
+        background-color: orange;
+      }
+      .list {
+        width: 200px;
+        height: 200px;
+        background-color: palegoldenrod;
+        overflow: auto;
+      }
+      li {
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <h2>欢迎{{name}}来学习呀~</h2>
+      <!-- 写法二：使用事件修饰符来阻止 -->
+      <a href="https://github.com/Monaxi" @click.prevent="showInfo"
+        >点我进入github</a
+      >
+      <div class="demo1" @click.prevent="showInfo"></div>
+      <!-- 事件只触发一次 -->
+      <button @click.once="showInfo">点我进入github2</button>
+
+      <!-- 使用事件的捕获模式 -->
+      <div class="box1" @click.capture="showMsg(1)">
+        div1
+        <div class="box2" @click="showMsg(2)">div2</div>
+      </div>
+
+      <!-- 只有event.target是当前操作的元素时才触发事件 -->
+      <div class="demo1" @click.self="showInfo">
+        <button @click="showInfo">点我提示信息</button>
+      </div>
+
+      <!-- 事件的默认行为立即执行，无需等待事件回调执行完毕 -->
+      <!-- scroll：滚动条滚动就会触发 -->
+      <!-- <ul @scroll="demo" class="list"> -->
+      <!-- wheel：鼠标滚轮滚动才会触发 -->
+      <!-- 加passive会优先响应滚动，不会受计数的影响，移动端的用的多 -->
+      <ul @wheel.passive="demo" class="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+      </ul>
+    </div>
+  </body>
+
+  <script>
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          name: 'Mona',
+        };
+      },
+      methods: {
+        showInfo(e) {
+          // e.preventDefault();// 写法一：阻止点击后跳转事件的发生
+          alert('hola~');
+          // console.log(e.target);
+        },
+        showMsg(msg) {
+          console.log(msg);
+        },
+        demo() {
+          for (let i = 0; i < 10000; i++) console.log('#');
+        },
+      },
+    });
+  </script>
+</html>

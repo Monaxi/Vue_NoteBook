@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>键盘事件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>欢迎{{name}}来学习</h2>
+      <input
+        type="text"
+        placeholder="按下回车提示输入"
+        @keydown.enter="showInfo"
+      />
+    </div>
+  </body>
+
+  <script>
+    // Vue.config.keyCode.huiche = 13; // 定义了一个别名为huiche的按键，huiche = enter
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          name: 'Mona',
+        };
+      },
+      methods: {
+        showInfo(e) {
+          console.log(e.key, e.keyCode);
+          // console.log(e.target.value);
+        },
+      },
+    });
+  </script>
+</html>

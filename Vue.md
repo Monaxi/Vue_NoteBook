@@ -164,7 +164,7 @@ NOTE：用Vue管理的函数，不可以写成箭头函数，一旦写了，this
 NOTE：观察发现
 
 	1. data中的所有属性，最后都出现在了vm身上；
- 	2. vm身上的所有属性，以及 Vue原型上的所有属性，在Vue模板中都可以直接使用。
+	2. vm身上的所有属性，以及 Vue原型上的所有属性，在Vue模板中都可以直接使用。
 
 ### 011-Object.defineProperty()
 
@@ -231,7 +231,125 @@ NOTE：观察发现
 
 ![02](Vue.assets/02.png)
 
-
-
 通过vm对象来代理data对象中属性的操作（读/写）
 
+好处：更加方便的操作data中的数据
+
+**基本原理**：
+
+​	通过`Object.defineProperty()`把data对象中所有属性添加到vm上；
+
+​	为每一个添加到vm上的属性，都指定一个getter/setter；
+
+​	在getter/setter内部去操作（读/写）data中对应的属性。
+
+
+
+### 014-事件处理
+
+事件的基本使用：
+
+1. 使用`v-on:xxx` 或者 `@xxx`绑定事件，其中xxx是事件名，比如click等；
+
+2. 事件的回调需要配置在`method`对象中，最终会在vm上；
+
+3. method中配置的函数，不要用箭头函数，否则this不会指向vm；
+
+4. method中配置的函数，都是被Vue管理的函数，this的指向是vm 或者 组件实例对象；
+
+5. `@click="demo"` 和 `@click="demo($event)"`效果一致，但后者可以传参。
+
+   ```vue
+    <body>
+       <div id="root">
+         <h2>欢迎{{name}}来学习呀</h2>
+         <!-- 点击button时 显示shouInfo -->
+         <button v-on:click="showInfo1">点我提示信息1(不传参)</button>
+         <button @click="showInfo2($event,66)">点我提示信息2(传参)</button>
+       </div>
+     </body>
+   
+     <script>
+       const vm = new Vue({
+         el: '#root',
+         data() {
+           return {
+             name: 'Mona',
+           };
+         },
+         methods: {
+           showInfo1(event) {
+             // console.log(event.target.innerText);
+             // console.log(this == vm);// 此处的this是vm（vue实例对象）
+             alert('你好~');
+           },
+           showInfo2(event, number) {
+             console.log(number);
+             console.log(event.target.innerText);
+             // console.log(this == vm);// 此处的this是vm（vue实例对象）
+             alert('你好呀~');
+           },
+         },
+       });
+     </script>
+   ```
+
+   
+
+### 015-事件修饰符
+
+Vue中的事件修饰符：
+
+1. **prevent**：阻止默认事件（常用）
+2. **stop**：阻止事件冒泡（常用）
+3. **once**：事件只触发一次（常用）
+4. **capture**：使用时间的捕获模式；
+5. **self**：只有event.target是当前操作的元素时才触发事件；
+6. **passive**：事件的默认行为立即执行，无需等待事件回调执行完毕。
+
+NOTE：修饰符可以连续写，比如：`@click.stop.prevent`
+
+### 016-键盘事件
+
+1. Vue中常用的按键别名
+
+   - 回车 => enter
+   - 删除 => delete(捕获"删除"和"退格"键)
+   - 退出 => esc
+   - 空格 => space
+   - 换行 => tab(特殊，必须配合keydown使用)
+   - 上 => up
+   - 下 => down
+   - 左 => left
+   - 右 => right
+
+2. Vue未提供别名的案件，可以使用按键原始的key值绑定，但注意要转为kebab-case（短横线命名）比如CapsLock需要写成caps-lock
+
+3. 系统修饰键（用法特殊）：ctrl alt shift meta
+
+   1. 配合keyup使用：按下修饰键的同时再按下其他键，随后释放其他键，事件才被触发。
+   2. 配合keydown使用：正常触发事件。
+
+   NOTE: 按ctrl+y触发事件这种情况，可以使用`@click.ctrl.y`
+
+4. 也可以使用keyCode去指定具体的按键（不推荐）
+
+5. Vue.config.keyCodes.自定义键名 = 键码，可以去定制按键别名
+
+### 019-计算属性（08-1 2 3）
+
+1. 定义：要用的属性不存在，要通过已有的属性计算得来
+2. 原理：底层借助了Object.defineproperty方法提供的getter和setter
+3. get函数什么时候执行？
+   1. 初次读取fullName时；
+   2. 所依赖的数据（用到的数据）发生变化时
+4. 优势：与methods实现相比，内部有缓存机制（复用），效率更高，调试方便
+
+NOTE：
+
+1. 计算属性最终会出现在vm上，直接读取使用即可
+2. 如果计算属性要被修改，必须写上set函数去响应修改，且set中要引起计算时依赖的数据发生改变。
+
+### 020-计算属性-简写
+
+确定只读不改，就可以简写
