@@ -75,7 +75,7 @@
 </html>
 ```
 
-### 006-分析Hello案例
+### 006-分析Hello案例（01）
 
 总结：
 
@@ -92,7 +92,7 @@
 3. 真实开发中，只有一个Vue实例，并且会配合组件一起使用；
 4. 一旦data中的数据发生改变，那么模板中用到该数据的地方也会自动更新。
 
-### 007-模板语法
+### 007-模板语法（02）
 
 #### 插值语法与指令语法
 
@@ -104,7 +104,7 @@
    - 举例：`v-bind:href="xxx"` 或简写为 `:href="xxx"`，xxx同样要写成js表达式的形式，且可以直接读取到data中的所有属性。
    - 备注：Vue中有很多指令，且形式都是：v-xxxx，v-bind只是个例子。
 
-### 008-数据绑定
+### 008-数据绑定（03）
 
 #### 单向数据绑定和双向数据绑定
 
@@ -116,7 +116,7 @@ NOTE：
 - 双向绑定一般都应用在表单类元素上，比如input、select等
 - `v-model:value`可以简写为 v-model，因为v-model默认收集的就是value的值
 
-### 009-el与data的两种写法
+### 009-el与data的两种写法（04）
 
 #### el的两种写法
 
@@ -151,7 +151,7 @@ NOTE：
 
 NOTE：用Vue管理的函数，不可以写成箭头函数，一旦写了，this就不再是Vue实例了。
 
-### 010-MVVM模型
+### 010-MVVM模型（05）
 
 1. MVVM定义：
 
@@ -166,7 +166,7 @@ NOTE：观察发现
 	1. data中的所有属性，最后都出现在了vm身上；
 	2. vm身上的所有属性，以及 Vue原型上的所有属性，在Vue模板中都可以直接使用。
 
-### 011-Object.defineProperty()
+### 011-Object.defineProperty()（06-1）
 
 1. 写法：`Object.defineProperty(obj, 'property', {descriptor})`
 
@@ -207,7 +207,7 @@ NOTE：观察发现
 </body>
 ```
 
-### 012-什么是数据代理
+### 012-什么是数据代理（06-2）
 
 数据代理：通过一个对象代理对另一个对象中属性的操作  读/写
 
@@ -227,7 +227,7 @@ NOTE：观察发现
     </script>
 ```
 
-### 013-Vue中的数据代理
+### 013-Vue中的数据代理（06-3）
 
 ![02](Vue.assets/02.png)
 
@@ -245,7 +245,7 @@ NOTE：观察发现
 
 
 
-### 014-事件处理
+### 014-事件处理（07-1）
 
 事件的基本使用：
 
@@ -296,7 +296,7 @@ NOTE：观察发现
 
    
 
-### 015-事件修饰符
+### 015-事件修饰符（07-2）
 
 Vue中的事件修饰符：
 
@@ -309,7 +309,7 @@ Vue中的事件修饰符：
 
 NOTE：修饰符可以连续写，比如：`@click.stop.prevent`
 
-### 016-键盘事件
+### 016-键盘事件（08-3）
 
 1. Vue中常用的按键别名
 
@@ -350,6 +350,53 @@ NOTE：
 1. 计算属性最终会出现在vm上，直接读取使用即可
 2. 如果计算属性要被修改，必须写上set函数去响应修改，且set中要引起计算时依赖的数据发生改变。
 
-### 020-计算属性-简写
+### 020-计算属性-简写（08-4）
 
 确定只读不改，就可以简写
+
+```js
+computed: {
+        // 完整写法
+        /* fullName: {
+          get() {
+            console.log('get被调用了');
+            return this.firstName + '-' + this.secondName;
+          },
+          set(value) {
+            console.log('set', value);
+            const arr = value.split('-');
+            this.firstName = arr[0];
+            this.secondName = arr[1];
+          },
+        }, */
+        // 简写
+        // function当getter用
+        /* fullName: function () {
+          return this.firstName + '-' + this.secondName;
+        }, */
+        // 也可以这么写
+        fullName() {
+          return this.firstName + '-' + this.secondName;
+        },
+      },
+```
+
+### 022-监视属性（09-2）
+
+监视属性watch：
+
+1. 当被监视的属性变化时，回调函数自动调用，进行相关操作
+2. 监视的属性必须存在，才能进行监视
+3. 监视的两种写法
+   1. new Vue时传入watch配置
+   2. 通过vm.$watch监视
+
+深度监视：
+
+1. Vue中的watch默认不监测对象内部值的改变（一层）
+2. 配置deep:true可以检测对象内部值改变（多层）
+
+NOTE：
+
+1. Vue自身可以监测对象内部值的改变，但Vue提供的watch默认不可以
+2. 使用watch时根据数据的具体结构，决定是否采用深度监视。
