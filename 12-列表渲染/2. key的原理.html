@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- 遍历数组 -->
+      <h2>人员列表</h2>
+      <button @click.once="add">添加一个老刘</button>
+      <ul>
+        <li v-for="(p,index) in persons" :key="p.id">
+          {{p.name}}-{{p.age}}
+          <input type="text" />
+        </li>
+      </ul>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          persons: [
+            { id: '001', name: 'Mona', age: 25 },
+            { id: '002', name: 'Wind', age: 26 },
+            { id: '003', name: 'Candy', age: 22 },
+          ],
+        };
+      },
+      methods: {
+        add() {
+          const p = { id: '004', name: '老刘', age: 40 };
+          this.persons.unshift(p); // 把老刘加在最前面
+        },
+      },
+    });
+  </script>
+</html>

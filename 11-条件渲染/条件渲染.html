@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>条件渲染</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>当前的值是:{{n}}</h2>
+      <button @click="n++">点我n+1</button>
+      <!-- 使用v-show做条件渲染 -->
+      <!-- <h2 v-show="flase">欢迎{{name}}</h2> -->
+      <!-- <h2 v-show="1 === 1">欢迎{{name}}</h2> -->
+
+      <!-- 使用v-if做条件渲染 -->
+      <!-- <h2 v-if="flase">欢迎{{name}}</h2> -->
+      <!-- <h2 v-show="1 === 1">欢迎{{name}}</h2> -->
+
+      <!-- 使用v-if做条件渲染 -->
+      <!-- <div v-if="n===1">Angular</div> -->
+      <!-- <div v-else-if="n===2">React</div> -->
+      <!-- <div>@</div> -->
+      <!-- <div v-else-if="n===3">Vue</div> -->
+      <!-- <div v-else>haha</div> -->
+
+      <!-- v-if与template配合使用 -->
+      <template v-if="n===1">
+        <h2>你好</h2>
+        <h2>Mona</h2>
+        <h2>Beijing</h2>
+      </template>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          name: 'Mona',
+          n: 0,
+        };
+      },
+    });
+  </script>
+</html>

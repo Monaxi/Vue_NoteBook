@@ -127,7 +127,7 @@ var preorderTraversal = function (root) {
   return res;
 };
  */
-var postorderTraversal = function (root) {
+/* var postorderTraversal = function (root) {
   if (root === null) return [];
   const stack = [root];
   let res = [];
@@ -139,4 +139,59 @@ var postorderTraversal = function (root) {
     if (cur.right) stack.push(cur.right);
   } while (stack.length);
   return res.reverse();
+};
+ */
+
+// 统一迭代方法
+// 前序遍历
+var preorderTraversal = function (root, res = []) {
+  const stack = [];
+  if (root) stack.push(root);
+  while (stack.length) {
+    const cur = stack.pop();
+    if (!cur) {
+      res.push(stack.pop().val);
+      continue;
+    }
+    if (cur.right) stack.push(cur.right); // 右
+    if (cur.left) stack.push(cur.left); // 左
+    stack.push(cur); // 中
+    stack.push(null);
+  }
+  return res;
+};
+
+// 中序遍历
+var inorderTraversal = function (root, res = []) {
+  const stack = [];
+  if (root) stack.push(root);
+  while (stack.length) {
+    const cur = stack.pop();
+    if (!cur) {
+      res.push(stack.pop().val);
+      continue;
+    }
+    if (cur.right) stack.push(cur.right); // 右
+    stack.push(cur); //中
+    stack.push(null);
+    if (cur.left) stack.push(cur.left); // 左
+  }
+  return res;
+};
+
+// 后序遍历
+var postorderTraversal = function (root, res = []) {
+  const stack = [];
+  if (root) stack.push(root);
+  while (stack.length) {
+    const cur = stack.pop();
+    if (!cur) {
+      res.push(stack.pop());
+      continue;
+    }
+    stack.push(cur);
+    stack.push(null);
+    if (cur.right) stack.push(cur.right);
+    if (cur.left) stack.push(cur.left);
+  }
 };
