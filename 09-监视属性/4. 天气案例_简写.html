@@ -50,10 +50,18 @@
     });
 
     // 正常写法
-    vm.$watch('isHot', {
+    /* vm.$watch('isHot', {
       immediate: true,
       deep: true,
-      handler() {},
+      handler(newValue, oldValue) {
+        console.log('isHot被修改了', newValue, oldValue);
+      },
+    }); */
+
+    // 简写
+    // 代价就是无法设置immediate和deep
+    vm.$watch('isHot', function (newValue, oldValue) {
+      console.log('isHot被修改了', newValue, oldValue);
     });
   </script>
 </html>
