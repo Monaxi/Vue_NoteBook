@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-html指令</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <div>{{name}}</div>
+      <div v-text="name"></div>
+      <div v-html="str"></div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          name: 'Mona',
+          str: '<h3> 你好呀 <h3>',
+        };
+      },
+    });
+  </script>
+</html>
