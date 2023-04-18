@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>引出生命周期</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2 :style="{opacity}">欢迎Mona来学习</h2>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          opacity: 1,
+        };
+      },
+      methods: {
+        change() {
+          setInterval(() => {
+            this.opacity -= 0.01;
+            if (this.opacity <= 0) this.opacity = 1;
+          }, 16);
+        },
+      },
+      // Vue完成模板的解析，并把初始的真实DOM元素放入页面后(挂载完毕)，再调用mounted
+      mounted() {
+        setInterval(() => {
+          vm.opacity -= 0.01;
+          if (vm.opacity <= 0) vm.opacity = 1;
+        }, 16);
+      },
+    });
+
+    // 通过外部的定时器实现（不推荐）
+    /* setInterval(() => {
+      vm.opacity -= 0.01;
+      if (vm.opacity <= 0) vm.opacity = 1;
+    }, 16); */
+  </script>
+</html>

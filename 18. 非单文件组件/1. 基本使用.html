@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- 第三步：编写组件标签 -->
+      <school></school>
+      <hello></hello>
+      <hr />
+      <student></student>
+      <hello></hello>
+      <hr />
+    </div>
+
+    <div id="root2">
+      <student></student>
+      <hr />
+      <hello></hello>
+    </div>
+  </body>
+  <script type="text/javascript">
+    // 第一步：创建school组件
+    const school = Vue.extend({
+      template: `<div>
+        <h2>School Name : {{schoolName}}</h2>
+        <h2>School Address : {{Address}}</h2>
+        <button @click="showName">点我提示学校名</button>
+      </div>`,
+      // el: '#root',// 组件定义时一定不要写el配置项，因为最终所有的组件都要被一个vm管理，由vm决定服务于哪个容器
+      data() {
+        return {
+          schoolName: 'BIGC',
+          Address: 'Beijing',
+        };
+      },
+      methods: {
+        showName() {
+          alert(this.schoolName);
+        },
+      },
+    });
+
+    // 第一步：创建student组件
+    const student = Vue.extend({
+      template: `
+      <div>
+        <h2>Student Name : {{name}}</h2>
+        <h2>Student Age : {{age}}</h2>
+      </div>`,
+      data() {
+        return {
+          name: 'Mona',
+          age: 25,
+        };
+      },
+    });
+
+    // 第一步：创建hello组件
+    const hello = Vue.extend({
+      template: `
+      <div>
+        <h2>你好呀！{{name}}</h2>
+      </div>
+      `,
+      data() {
+        return {
+          name: 'Tom',
+        };
+      },
+    });
+
+    // 第二步：全局注册组件
+    Vue.component('hello', hello);
+    // 创建vm
+    new Vue({
+      el: '#root',
+      // 第二步：注册组件（局部注册）
+      components: {
+        school,
+        student,
+      },
+    });
+
+    new Vue({
+      el: '#root2',
+      components: {
+        student,
+      },
+    });
+  </script>
+</html>

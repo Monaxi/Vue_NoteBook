@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/javascript">
+    // 定义student组件
+    const student = Vue.extend({
+      name: 'student', // 这里指定的是开发者工具中呈现的名字
+      template: `
+      <div>
+        <h2>Student Name:{{name}}</h2>
+        <h2>Student Age:{{age}}</h2>
+      </div>
+      `,
+      data() {
+        return {
+          name: 'Mona',
+          age: 25,
+        };
+      },
+    });
+
+    // 定义school组件
+    const school = Vue.extend({
+      name: 'school', // 这里指定的是开发者工具中呈现的名字
+      template: `
+      <div>
+        <h2>School Name:{{name}}</h2>
+        <h2>School Address:{{address}}</h2>
+        <student></student>
+      </div>
+      `,
+      data() {
+        return {
+          name: 'BIGC',
+          address: 'Beijing',
+        };
+      },
+      // 注册组件（局部）
+      components: {
+        student,
+      },
+    });
+
+    // 定义一个hello组件
+    const hello = Vue.extend({
+      template: `<h1>{{msg}}</h1>`,
+      data() {
+        return {
+          msg: 'Welcome!',
+        };
+      },
+    });
+
+    // 定义app组件
+    const app = Vue.extend({
+      template: `
+      <div>
+        <hello></hello>
+        <school></school>
+
+      </div>
+      `,
+      components: {
+        school,
+        hello,
+      },
+    });
+
+    const vm = new Vue({
+      template: `<app></app> `,
+      el: '#root',
+      // 注册组件（局部）
+      components: {
+        app,
+      },
+    });
+  </script>
+</html>

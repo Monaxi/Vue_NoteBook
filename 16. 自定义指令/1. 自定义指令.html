@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自定义指令</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+      需求1：定义一个v-big指令，和v-text指令功能类似，但会把绑定的数值放大10倍
+      需求2：定义一个v-fbind指令，和v-bind指令功能类似，但可以让其所绑定的input元素默认获取焦点。
+     -->
+    <div id="root">
+      <h2>当前的n值是: <span v-text="n"></span></h2>
+      <!-- <h2>放大10倍后的n值是: <span v-big="n"></span></h2> -->
+      <h2>放大10倍后的n值是: <span v-big-number="n"></span></h2>
+      <button @click="n++">点我n+1</button>
+      <hr />
+      <input type="text" v-fbind:value="n" />
+    </div>
+  </body>
+  <script type="text/javascript">
+    /*  
+   // 定义全局指令
+    Vue.directive('fbind', {
+      bind(element, binding) {
+        element.value = binding.value;
+      },
+      // 指令所在元素被插入页面时
+      inserted(element, binding) {
+        element.focus();
+      },
+      // 指令所在的模板被重新解析时
+      update(element, binding) {
+        element.value = binding.value;
+      },
+    }); */
+
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          n: 1,
+        };
+      },
+      directives: {
+        // big(element,binding){
+        'big-number': function (element, binding) {
+          // big函数何时会被调用：
+          // 1. 指令与元素成功绑定时（一上来）；
+          // 2. 指令所在的模板被重新解析时；
+          element.innerText = binding.value * 10;
+          console.log(element, binding.value);
+        },
+        fbind: {
+          // 指令与元素成功绑定时（一上来）
+          bind(element, binding) {
+            element.value = binding.value * 10;
+            console.log('bind');
+          },
+          // 指令所在元素被插入页面时
+          inserted(element, binding) {
+            element.focus();
+            console.log('inserted');
+          },
+          // 指令所在的模板被重新解析时
+          update(element, binding) {
+            console.log('update');
+            element.value = binding.value * 10;
+            element.focus();
+          },
+        },
+      },
+    });
+  </script>
+</html>

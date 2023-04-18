@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h1>{{msg}}</h1>
+      <my-school></my-school>
+    </div>
+  </body>
+  <script type="text/javascript">
+    // const s = Vue.extend({
+    const s = {
+      name: 'school', // 这里指定的是开发者工具中呈现的名字
+      template: `
+      <div>
+        <h2>School Name:{{name}}</h2>
+        <h2>School Address:{{address}}</h2>
+        </div>
+      `,
+      data() {
+        return {
+          name: 'BIGC',
+          address: 'Beijing',
+        };
+      },
+    };
+    //);
+
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          msg: 'Welcome',
+        };
+      },
+      components: {
+        // 'my-school': s,
+        'my-school': s,
+      },
+    });
+  </script>
+</html>

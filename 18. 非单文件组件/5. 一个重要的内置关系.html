@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>内置关系</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/javascript">
+    // 定义school组件
+    const school = Vue.extend({
+      name: 'school', // 这里指定的是开发者工具中呈现的名字
+      template: `
+      <div>
+        <h2>School Name:{{name}}</h2>
+        <h2>School Address:{{address}}</h2>
+      </div>
+      `,
+      data() {
+        return {
+          name: 'BIGC',
+          address: 'Beijing',
+        };
+      },
+    });
+
+    // 创建一个vm
+
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          msg: '你好',
+        };
+      },
+    });
+
+    console.log(school.prototype.__proto__ === Vue.prototype);
+    /* 
+    // 简单过一下原型链
+    // 定义一个构造函数
+    function Demo() {
+      this.a = 1;
+      this.b = 2;
+    }
+
+    // 创建一个Demo的实例对象
+    const d = new Demo();
+
+    console.log(Demo.prototype); // 显示原型属性
+    console.log(d.__proto__); // 隐式远行属性
+
+    console.log(Demo.prototype === d.__proto__); // true
+
+    // 程序员通过显示原型属性操作原型对象，追加一个x属性，值为99
+    Demo.prototype.x = 99;
+
+    console.log('@', d); */
+  </script>
+</html>
