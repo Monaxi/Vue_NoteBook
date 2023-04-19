@@ -1,26 +1,20 @@
 <template>
   <!-- 组件的结构 -->
   <div class="demo">
-    <h2>School Name : {{ schoolName }}</h2>
-    <h2>School Address : {{ Address }}</h2>
-    <button>点我提示学校名</button>
+    <h2>Student Name : {{ name }}</h2>
+    <h2>Student Age : {{ age }}</h2>
   </div>
 </template>
 
 <script>
 // 组件交互相关的代码（数据、方法等）
 export default {
-  name: 'School',
+  name: 'Student',
   data() {
     return {
-      schoolName: 'BIGC',
-      Address: 'Beijing',
+      studentName: 'Mona',
+      Age: 25,
     };
-  },
-  methods: {
-    showName() {
-      alert(this.schoolName);
-    },
   },
 };
 </script>

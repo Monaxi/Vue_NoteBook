@@ -10,7 +10,7 @@
 <script>
 // 组件交互相关的代码（数据、方法等）
 export default {
-  name: 'School',
+  name: 'SchoolMessage',
   data() {
     return {
       schoolName: 'BIGC',

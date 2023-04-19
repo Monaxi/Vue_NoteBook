@@ -652,7 +652,7 @@ vm的生命周期：
 
 
 
-### 054-非单文件组件与单文件组件
+### 054-非单文件组件
 
 1. 非单文件组件：一个文件中包含有n个组件
 2. 单文件组件：一个文件中只包含有1个组件
@@ -740,3 +740,27 @@ NOTE：不用使用脚手架时，`<school />`会导致后续组件不能渲染
 
 1. 重要内置关系：`VueComponent.prototype.__proto__ === Vue.peototype`
 2. 为什么要有这个关系：让组件实例对象（vc）可以访问到Vue原型上的属性、方法
+
+## 03-Vue脚手架
+
+#### 061-安装并创建脚手架
+
+Step1：全局安装@vue/cli
+
+```
+npm config set registry https://registry.npm.taobao.org
+npm install -g @vue/cli
+```
+
+Step2：切换到**要创建项目的目录**，然后使用命令创建项目
+
+```
+vue create xxxx
+```
+
+Step3：启动项目
+
+```
+npm run serve
+```
+
